@@ -36,7 +36,6 @@ public class TestConfig {
             field = System.getProperty(fieldName, field);
         }
         assertNotNull(field, String.format("%s is not found in %s.properties and not set by system properties", fieldName, env));
-        System.out.printf("%s: %s%n", fieldName, field);
         return field;
     }
 

@@ -8,24 +8,25 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.util.Properties;
 import java.time.Duration;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class Tests {
+public class Tests1 {
 
     WebDriver driver;
 
     TestConfig config = new TestConfig();
-    String baseUrl = config.getBaseUrl();
+    String baseUrl = config.getBaseUrl();     //вопрос - можно ли как-то по-другому доставать проперти прям из тестового класса
     String testPrompt = config.getTestPrompt();
+    String username = config.getUsername();
+    String password = config.getPassword();
 
     @BeforeEach
     void setup() {
         driver = new ChromeDriver();
-        driver.get(baseUrl);                        //вопрос - можно ли как-то по-другому доставать проперти прям из тестового класса
+        driver.get(baseUrl);
 
         driver.manage().window().maximize();
     }
@@ -36,9 +37,21 @@ public class Tests {
     }
 
     @Test
+    @DisplayName("Unsuccessful login")
+    void loginTest() {
+        driver.get(baseUrl + "login-form.html");
+        driver.findElement(By.name("username")).sendKeys(username + "1");
+        driver.findElement(By.name("password")).sendKeys(password + "2");
+        driver.findElement(By.cssSelector("button")).click();
+
+        assertEquals("Invalid credentials", driver.findElement(By.id("invalid")).getText());
+        assertEquals(baseUrl + "login-form.html", driver.getCurrentUrl());
+    }
+
+    @Test
     @DisplayName("Infinite scroll")
     void infiniteScrollTests() {
-        driver.get(baseUrl+"infinite-scroll.html");
+        driver.get(baseUrl + "infinite-scroll.html");
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(1));
         List<WebElement> paragraphs = driver.findElements(By.xpath("//p[@class='lead']"));
 
@@ -60,7 +73,7 @@ public class Tests {
     @Test
     @DisplayName("Shadow Dom")
     void shadowDomTests() {
-        driver.get(baseUrl+"shadow-dom.html");
+        driver.get(baseUrl + "shadow-dom.html");
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(1));
         WebElement content = driver.findElement(By.id("content"));
         SearchContext shadowRoot = content.getShadowRoot();
@@ -71,7 +84,7 @@ public class Tests {
     @Test
     @DisplayName("Cookies")
     void cookiesTests() {
-        driver.get(baseUrl+"cookies.html");
+        driver.get(baseUrl + "cookies.html");
         WebElement button = driver.findElement(By.cssSelector("button"));
         WebElement cookiesList = driver.findElement(By.xpath("//p[@id='cookies-list']"));
 
@@ -93,7 +106,7 @@ public class Tests {
     @Test
     @DisplayName("iFrames")
     void iFramesTests() {
-        driver.get(baseUrl+"iframes.html");
+        driver.get(baseUrl + "iframes.html");
         assertThrows(NoSuchElementException.class, () -> driver.findElement(By.className("lead")));
         WebElement iframe = driver.findElement(By.id("my-iframe"));
         driver.switchTo().frame(iframe);
@@ -104,7 +117,7 @@ public class Tests {
     @Test
     @DisplayName("Alerts")
     void alertsTests() {
-        driver.get(baseUrl+"dialog-boxes.html");
+        driver.get(baseUrl + "dialog-boxes.html");
         WebElement launchAlert = driver.findElement(By.id("my-alert"));
         WebElement launchConfirm = driver.findElement(By.id("my-confirm"));
         WebElement launchPrompt = driver.findElement(By.id("my-prompt"));
@@ -134,12 +147,5 @@ public class Tests {
         assertEquals("This is the modal body", driver.findElement(By.xpath("//div[@class='modal-body']")).getText());
         driver.findElement(By.cssSelector("button.btn-primary")).click();
         assertTrue(driver.findElement(By.xpath("//p[@id='modal-text']")).getText().contains("Save changes"));
-    }
-
-    @Test
-    @DisplayName("Web Storage")
-    @Disabled
-    void webStorageTests() {
-        //пока ничего, метод устаревший...
     }
 }
