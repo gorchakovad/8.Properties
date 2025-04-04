@@ -18,12 +18,12 @@ public class TestConfig {
         return getFieldByName("baseUrl");
     }
 
-    public String getName(){
-        return getFieldByName("name");
+    public String getUsername(){
+        return getFieldByName("username");
     }
 
-    public String getSurname(){
-        return getFieldByName("surname");
+    public String getPassword(){
+        return getFieldByName("password");
     }
 
     public String getTestPrompt(){
