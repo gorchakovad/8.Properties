@@ -1,0 +1,5 @@
+# Default ignored files
+/shelf/
+/workspace.xml
+src/test/resources/default.properties
+src/test/resources/test.propertiesgit rm -r --cached .

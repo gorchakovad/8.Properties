@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="ui.Tests" tests="1" skipped="0" failures="0" errors="0" timestamp="2025-04-04T14:10:07" hostname="ALEX" time="4.243">
+  <properties/>
+  <testcase name="Cookies" classname="ui.Tests" time="4.243"/>
+  <system-out><![CDATA[baseUrl: https://bonigarcia.dev/selenium-webdriver-java/
+testprompt: This is default props
+Проверенный промпт: This is default props
+]]></system-out>
+  <system-err><![CDATA[апр. 04, 2025 6:10:08 PM org.openqa.selenium.devtools.CdpVersionFinder findNearestMatch
+WARNING: Unable to find an exact match for CDP version 134, returning the closest version; found: 133; Please update to a Selenium version that supports CDP version 134
+]]></system-err>
+</testsuite>
