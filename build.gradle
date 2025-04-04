@@ -1,0 +1,32 @@
+plugins {
+    id("java")
+    id("io.qameta.allure") version "2.12.0"
+
+}
+
+group = "org.example"
+version = "1.0-SNAPSHOT"
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation(platform("org.junit:junit-bom:5.10.0"))
+    testImplementation("org.junit.jupiter:junit-jupiter")
+    testImplementation(platform("io.qameta.allure:allure-bom:2.24.0"))
+    testImplementation("io.qameta.allure:allure-spock2")
+    testImplementation("io.qameta.allure:allure-junit-platform")
+    testImplementation("org.seleniumhq.selenium:selenium-java:4.29.0")
+    testImplementation 'org.aeonbits.owner:owner:1.0.12'
+
+}
+
+tasks.test {
+    useJUnitPlatform()
+}
+
+test {
+    useJUnitPlatform()
+    systemProperties(System.getProperties())
+}
